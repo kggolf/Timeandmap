@@ -17,8 +17,8 @@
     function initialize() {
     
     directionsDisplay = new google.maps.DirectionsRenderer();
-    var latlng_origin = new google.maps.LatLng(-33.468528,-70.714187);
-    var latlng_destination = new google.maps.LatLng(-33.430715,-70.563125);
+    var latlng_origin = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+    var latlng_destination = new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
     //navigator.geolocation.getCurrentPosition(geolocationSuccess, [geolocationError], [geolocationOptions]);
     var myOptions = {
       zoom: 8,
@@ -86,8 +86,8 @@ function getPolylinePoints (map, pl, stepDistance){
 
 
 function calcRoute(position) {
-    var start = position.coords.latitude + "," + position.coords.longitude;
-    var end = "-33.430715,-70.563125";
+    var start = pos.coords.latitude + "," + pos.coords.longitude;
+    var end = pos.coords.latitude + "," + pos.coords.longitude;
     var request = {
         origin:start, 
         destination:end,
