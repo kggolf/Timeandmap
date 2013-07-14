@@ -23,34 +23,7 @@ var map = document.getElementById('map');
   map.src ="http://maps.googleapis.com/maps/api/staticmap?center=" + 
   pos.coords.latitude +"," + pos.coords.longitude + "&zoom=12&size=" + mapwidth + "x" + mapheight + "&maptype=roadmap&markers=color:green%7C" +
   pos.coords.latitude +"," + pos.coords.longitude + "&sensor=false";
-  
-  var directions; // สร้างตัวแปรสำหรับกำหนดเส้นทาง  
-  function initialize() {   
-  if (GBrowserIsCompatible()) {   
-    var map = new GMap2(document.getElementById("map_canvas"));       
-    var center = new GLatLng(13.77436,100.53458); // การกำหนดจุดเริ่มต้น  
-    map.setCenter(center, 13);  // เลข 13 คือค่า zoom  สามารถปรับตามต้องการ   
-    map.setUIToDefault();   
-      
-    var marker = new GMarker(center, {draggable: false});  // สร้างตัว mark เริ่มต้น  
-    map.addOverlay(marker);  
-      
-    var markerGoTo = new GMarker(center, {draggable: true}); // สร้างตัว mark อีกอัน  
-    map.addOverlay(markerGoTo);  
-    directions = new GDirections(map);    
-    var directOpt= { "preserveViewport": true, "getSteps": true ,"getPolyline":true};   // กำหนดรูปแบบของส้นทาง  
-  
-    GEvent.addListener(markerGoTo, "dragend", function() {  
-        var point = markerGoTo.getPoint(); // หาตำแหน่างเมื่อหยุดการลากตัว mark  
-        directions.load("from: "+point+" to:13.77436,100.53458 ",directOpt); // สร้างเส้นทาง  
-    });  
-    GEvent.addListener(directions, "load", function() {  
-        var drivingDistanceKilometers = directions.getDistance().meters / 1000;     // หาระยะทางเป็น กิโลเมตร  
-        $("#distanceDrive").val(drivingDistanceKilometers); // นำค่าที่ได้ไปใส่ใน textbox   
-    });           
-       
-  }   
-}   
+ 
   };
 
   function fail(error) {
@@ -91,19 +64,105 @@ document.getElementById('cur_position').innerHTML = "Error getting geolocation: 
 console.log("Error getting geolocation: code=" + error.code + " message=" + error.message);
 };
 
-
-
-
 </script>
+
+<script type="text/javascript" charset="utf-8">
+
+  	var ms = 0;
+		var state = 0;
+
+		function startstop() {
+			if (state == 0) {
+			state = 1;
+			then = new Date();
+			then.setTime(then.getTime() - ms);
+			}   
+			else {
+			state = 0;
+			now = new Date();
+			ms = now.getTime() - then.getTime();
+
+			hours = Math.floor(ms%(1000 * 60 * 60 * 24)/(1000 * 60 * 60));
+			if (hours < 10)
+			hours = "0" + hours
+
+			minutes = Math.floor((ms%(1000 * 60 * 60))/(1000 * 60));
+			if (minutes < 10)
+			minutes = "0" + minutes
+
+			seconds = Math.floor((ms%(1000 * 60))/1000);
+			if (seconds < 10)
+			seconds = "0" + seconds
+    	
+			document.all('timer').innerHTML = '<h1>'+hours+':'+minutes+':'+seconds+'</h1>';
+   	   		}
+		}
+
+		function swreset() {
+			state = 0;
+			ms = 0;
+			document.all('timer').innerHTML = '<h1>00:00:00</h1>';
+		}
+
+		function display() {
+		setTimeout("display();", 500);
+		if (state == 1)  {
+		now = new Date();
+		ms = now.getTime() - then.getTime();
+		hours = Math.floor(ms%(1000 * 60 * 60 * 24)/(1000 * 60 * 60));
+		if (hours < 10)
+		hours = "0" + hours
+
+		minutes_divisor = ms%(1000 * 60 * 60);
+		minutes = Math.floor(minutes_divisor/(1000 * 60));
+		if (minutes < 10)
+		minutes = "0" + minutes
+
+		seconds_divisor = ms%(1000 * 60);
+		seconds = Math.floor(seconds_divisor/1000);
+		if (seconds < 10)
+		seconds = "0" + seconds
+
+		document.all('timer').innerHTML = '<h1>'+hours+':'+minutes+':'+seconds+'</h1>';
+   		}
+		}
+		</script>
 
 
 </head>
-<body>
-<h2>Geolocation</h2>
-<a class="btn deux" onclick="getCurrentPosition();">Get Current</a>
+<body onLoad="display();" style="background: #FFFFFF;">
+<div data-role="page" id="page" >
+
+	<div data-role="header" align="center">
+		<h1>RunforHealth</h1>
+	</div><br><br>
+    <div align="center">
 <div class="result-block">
 <span id="cur_position"></span>
 </div>
 <img id="map" alt="Location Map"/> 
+</div>
+<table border="0" cellspacing="0" cellpadding="0" align="CENTER">
+
+	<form NAME="stpw">
+ <tr>
+	<td>
+    <h4>Time&nbsp;:&nbsp;</h4>
+    </td>
+    <td>
+	<div id="timer" class="logininput" align="center"><h1>00:00:00</h1></div>
+    </td>
+</tr>
+<tr>
+	<td colspan="2">
+    <div onClick="getCurrentPosition()" class="btn deux">
+	<input TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="startstop()">
+	<input TYPE="BUTTON" NAME="reset" VALUE="Reset" onClick="swreset()">
+	</form>
+    </div>
+    </td>
+</tr>
+</table>
+</div>
 </body> 
 </html>
