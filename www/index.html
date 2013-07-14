@@ -1,8 +1,13 @@
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/staticmap?center=" + 
+  pos.coords.latitude +"," + pos.coords.longitude + "&zoom=12&size=" + mapwidth + "x" + mapheight + "&maptype=roadmap&markers=color:green%7C" +
+  pos.coords.latitude +"," + pos.coords.longitude + "&sensor=false"></script>
 <script type="text/javascript">
+
+
+
   function initialize() {
     var latitude = pos.coords.latitude;
     var longitude = pos.coords.longitude;
