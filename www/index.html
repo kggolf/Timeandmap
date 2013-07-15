@@ -18,10 +18,10 @@ var map = document.getElementById('map');
 
   function success(pos) { 
   map.style.display ='block';
-  var mapwidth = 250; // a mungy compromise between the 2 sizes
+  var mapwidth = 350; // a mungy compromise between the 2 sizes
   var mapheight = 250; // since we can't get w / h dynamically
   map.src ="http://maps.googleapis.com/maps/api/staticmap?center=" + 
-  pos.coords.latitude +"," + pos.coords.longitude + "&zoom=12&size=" + mapwidth + "x" + mapheight + "&maptype=roadmap&markers=color:green%7C" +
+  pos.coords.latitude +"," + pos.coords.longitude + "&zoom=18&size=" + mapwidth + "x" + mapheight + "&maptype=roadmap&markers=color:blue%7C" +
   pos.coords.latitude +"," + pos.coords.longitude + "&sensor=false";
  
   };
@@ -105,7 +105,7 @@ var map = document.getElementById('map');
 
 	<div data-role="header" align="center">
 		<h1>RunforHealth</h1>
-	</div><br><br>
+	</div><br>
     <div align="center">
 <div class="result-block">
 <span id="cur_position"></span>
@@ -125,7 +125,8 @@ var map = document.getElementById('map');
 </tr>
 <tr>
 	<td colspan="2">
-    <div onClick="getCurrentPosition()" class="btn deux">
+    <div onClick="getCurrentPosition()" class="btn deux" >
+    <form align="CENTER">
 	<input TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="startstop()">
 	<input TYPE="BUTTON" NAME="reset" VALUE="Reset" onClick="swreset()">
 	</form>
