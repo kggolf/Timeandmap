@@ -34,36 +34,6 @@ var map = document.getElementById('map');
   navigator.geolocation.getCurrentPosition(success, fail);  
 };
 
-
-var watchID = null;
-function clearWatch() { 
-if (watchID !== null) {
-navigator.geolocation.clearWatch(watchID);
-watchID = null;
-document.getElementById('cur_position').innerHTML = "";
-document.getElementById('map').style.display = 'none';
-}
-}
-
-function varwsuccess(pos) { 
-var map = document.getElementById('map');
-document.getElementById('cur_position').innerHTML = "Watching geolocation . . .";
-map.style.display ='none';
-var text = "<div>Latitude: " + pos.coords.latitude + " (watching)<br/>" + "Longitude: " + pos.coords.longitude + "<br/>" + "Accuracy: " + pos.coords.accuracy + "m<br/>" + "</div>";
-document.getElementById('cur_position').innerHTML = text;
-console.log(text);
-map.style.display ='block';
-var mapwidth = 270; // a mungy compromise between the 2 sizes
-var mapheight = 210; // since we can't get w / h dynamically
-map.src ="http://maps.googleapis.com/maps/api/staticmap?center=" + pos.coords.latitude +"," + pos.coords.longitude + "&zoom=13&size=" + mapwidth + "x" + mapheight + "&maptype=roadmap&markers=color:green%7C" +pos.coords.latitude +"," + pos.coords.longitude + "&sensor=false";
-};
-
-
-function varwfail(error) { 
-document.getElementById('cur_position').innerHTML = "Error getting geolocation: " + error.code;
-console.log("Error getting geolocation: code=" + error.code + " message=" + error.message);
-};
-
 </script>
 
 <script type="text/javascript" charset="utf-8">
