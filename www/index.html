@@ -108,14 +108,17 @@ var map = document.getElementById('map');
 	<div data-role="header" align="center" data-position="fixed">
 		<h1>RunforHealth</h1>
 	</div><br>
-    <div align="center">
-<div class="result-block">
-<span id="cur_position"></span>
-</div>
-<img id="map" alt="Location Map"/> 
-</div>
-<table border="0" cellspacing="0" cellpadding="0" align="CENTER">
-
+	<table border="0" cellspacing="0" cellpadding="0" align="CENTER">
+	<tr>
+	<td colspan="2" width="351" height="251">
+    	<div align="center">
+	<div class="result-block">
+	<span id="cur_position"></span>
+	</div>
+	<img id="map" alt="Location Map"/> 
+	</div>
+	</td>
+	</tr>
 	<form NAME="stpw">
  <tr>
 	<td>
@@ -128,12 +131,11 @@ var map = document.getElementById('map');
 <tr>
 	<td colspan="2">
     <div onClick="getCurrentPosition()" class="btn deux" >
-    <form align="CENTER">
 	<input TYPE="BUTTON" Name="ssbutton" VALUE="Start/Stop" onClick="startstop()">
 	<input TYPE="BUTTON" NAME="reset" VALUE="Reset" onClick="swreset()">
 	</form>
     </div>
-    </td>
+    	</td>
 </tr>
 </table>
 </div>
