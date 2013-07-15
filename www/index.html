@@ -37,7 +37,7 @@ var map = document.getElementById('map');
   document.getElementById('cur_position').innerHTML = "Error getting geolocation: " + error.code;console.log("Error getting geolocation: code=" + error.code + " message=" + error.message);};
   map.style.display ='none';
   document.getElementById('cur_position').innerHTML = "Getting geolocation . . .";
-  console.log("Getting geolocation . . .");
+  console.log("Your Position");
   navigator.geolocation.getCurrentPosition(success, fail);  
 };
 
